@@ -1,2 +1,16 @@
 # AnalyzingCrowdSourcedReviews
 Analyzing crowd-sourced reviews about local businesses - YELP dataset
+
+Technical Paper - https://drive.google.com/open?id=0BzHtvANDgsA9MzdjTFNIRzFScms
+
+PART I - Predicting a star rating for businesses based on the category, check-ins and review count. 
+The goal here was to classify stars (1 stars, 1.5 stars, 2 stars, 2.5 stars, 3 stars, 3.5 stars, 4 stars, 4.5 stars) such that a decision tree can be formed that will be able to predict which star rating a business is likely to get considering the category, number of checkins and review_count received by users. 
+
+PART II - Predicting the number of fans for particular user based on number of votes for each vote type, number of reviews written by user and star rating received by a user.
+The goal here was to classify the users such that a decision tree can be formed that will be able to predict whether a particular user will have high or low number of fans. To reduce the cost of the decision making process, it was necessary to create a decision tree with lesser number of nodes which is able to predict accurate decisions. This was achieved by classifying the data using less number of attributes.
+
+During the cleaning phase for PART I, for our BUSINESS dataset we did the binning for business categories as initial dataset had over 400 different categories. It was difficult to deal with 400 categories and we knew these can be logically grouped based on the services that they have to offer. Then, we successfully binned it into 5 broad categories Food, Shopping & Entertainment, Services, Health & Fitness and Miscellaneous.
+We wrote a JAVA program to convert BUSINESS and CHECKINS JSON dataset into a customized CSV file with required fields and binned value for category field. During this cleaning, we were able to remove 10 attributes from BUSINESS data set and merged number of check-ins by a particular business from CHECKINS dataset into final csv file.
+
+During the cleaning phase for PART II, for our USER dataset we did the binning for ‘fans’ attribute. The fans attribute specifies number of fans a particular user has. As the value is continuous, it couldn’t be used for classification effectively. Binning was performed on the ‘fans’ attribute to divide the users into two groups, such as, users with less number of fans and users with high number of fans based on the threshold value. In order to classify the data more precisely, a new attributes ‘fun’ and ‘useful’ were created using the values from ‘votes’ and ‘review_count’ attribute. Number of votes indicate reliability of user whereas review count indicates the activeness of a particular user. This collectively determines the user’s usefulness.
+We wrote a JAVA program to convert USER JSON dataset into a customized CSV file with required fields. During this cleaning, we were able to remove 4 attributes from USER dataset which were not contributing towards the classification or impacting our final model e.g. friends (the other user_ids which are friends with this user), compliments (cute, funny, plain, writer, note, cool), elite (number of years since the user has been a highly values customer). As the number of instances for USER dataset were over 550000, we have considered only 50000 instances for showcasing classification with available tools.
